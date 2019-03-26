@@ -6,4 +6,4 @@
     npm start
 
 ###Date 2019/03/27
-##### Use antdesgin react react-router and mobx ,use antd for example
+##### Use antdesgin react react-router and mobx ,use antd as an example
