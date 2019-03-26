@@ -5,19 +5,20 @@ const path = require('path');
 
 module.exports = merge(common, {
     module: {
-        rules: [{
-            test: /\.js$/,
-            exclude: /node_modules/,
-            loader: 'eslint-loader'
-        }]
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'eslint-loader'
+            }]
     },
     devtool: 'inline-source-map',
     devServer: {
-        contentBase: path.join(__dirname, "dist"),
+        contentBase: path.join(__dirname, "../dist"),
         hot: true,
-        index: 'index.html',
         port: 3000,
-        inline: true
+        inline: true,
+        historyApiFallback:true
     },
     plugins: [
         new webpack.NamedModulesPlugin(),

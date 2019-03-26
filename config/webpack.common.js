@@ -1,10 +1,9 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
     entry: './src/index.js',
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, '../dist'),
         filename: 'boundle.js',
     },
     module: {
@@ -13,7 +12,8 @@ module.exports = {
                 test: /\.css$/,
                 use: [
                     'style-loader',
-                    'css-loader'
+                    'css-loader',
+                    "postcss-loader"
                 ]
             },
             {
@@ -23,7 +23,7 @@ module.exports = {
                 ]
             },
             {
-                test:/\.(js|jsx)?$/,
+                test: /\.(js|jsx)?$/,
                 exclude: /node_modules/,
                 use: [{
                     loader: "babel-loader"
@@ -32,11 +32,10 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             title: 'React Demo',
-            filename:'index.html',
-            template:'./src/template/index.html'
+            filename: 'index.html',
+            template: './src/template/index.html'
         })
     ],
 };

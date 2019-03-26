@@ -1,0 +1,10 @@
+.logo {
+    height: 64px;width: 100%;
+    color: white;
+    line-height: 64px;
+    text-align: center;
+    font-size: 25px;
+}
+.ant-layout {
+    height: calc(94vh);
+}
