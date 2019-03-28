@@ -1,12 +1,10 @@
-import { observable, computed,action } from "mobx";
-import { observer } from 'mobx-react';
+import { observable, computed, action } from "mobx";
 
-@observer
 class TodoStore {
-    @observable TodoList = [];
-    @action 
-    Add() {
-
+    @observable todoList = [];
+    @action
+    Add({ todo, time }) {
+        this.todoList.push({ todo, time });
     }
 }
-export default Store
+export default TodoStore;

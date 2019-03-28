@@ -15,7 +15,6 @@ import {
 class App extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props)
   }
   state = {
     collapsed: false,
