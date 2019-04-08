@@ -1,8 +1,22 @@
+import { observable } from "mobx";
 
-export default class TodoModel extends Component {
-    constructor({ id, todo, time }) {
-        this.id = id;
-        this.todo = todo;
-        this.time = time;
-    }
+class TodoModel {
+  @observable key;
+  @observable todoName;
+  @observable addTime;
+  constructor(todo, time) {
+    this.key = Math.random();
+    this.todoName = todo;
+    this.addTime = time;
+  }
+
+  toObject() {
+    return {
+      key: this.key,
+      todoName: this.todoName,
+      addTime: this.addTime
+    };
+  }
 }
+
+export default TodoModel;

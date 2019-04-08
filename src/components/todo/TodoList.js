@@ -1,37 +1,50 @@
-import React, { Component } from 'react';
-import { Table,Button } from 'antd';
+import React, { Component } from "react";
+import { Table, Button } from "antd";
+import { observer, inject } from "mobx-react";
 
-export default class TodoList extends Component {
+@inject("todoStore")
+@observer
+class TodoList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: []
+    };
+  }
+  componentDidMount() {
+    this.setState({ data: this.props.todoStore.List });
+  }
   render() {
     const columns = [
       {
-        title: '代办事项', dataIndex: 'todoName', key: 'todoName'
+        title: "代办事项",
+        dataIndex: "todoName",
+        key: "todoName"
       },
       {
-        title: '添加时间', dataIndex: 'addTime', key: 'addTime'
+        title: "添加时间",
+        dataIndex: "addTime",
+        key: "addTime"
       },
       {
-        title: 'Action',
-        key: 'operation',
-        render: () =>(
+        title: "Action",
+        key: "operation",
+        render: () => (
           <>
             <Button type="info">编辑</Button>
             <Button type="danger">删除</Button>
           </>
-        ),
-      },
+        )
+      }
     ];
-    const data = [{
-      key: '1',
-      todoName: '吃饭饭',
-      addTime: '2019-03-26 17:00',
-    }, {
-      key: '2',
-      todoName: '洗澡澡',
-      addTime: '2019-03-26 18:00',
-    }];
     return (
-      <Table columns={columns} dataSource={data} width={{ width: '100%' }} />
-    )
+      <Table
+        columns={columns}
+        dataSource={this.state.data}
+        width={{ width: "100%" }}
+      />
+    );
   }
 }
+
+export default TodoList;
