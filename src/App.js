@@ -59,7 +59,7 @@ class App extends Component {
             </Menu.Item>
             <SubMenu
               key="sub1"
-              title={<span><Icon type="user" /><span>User</span></span>}
+              title={<span><Icon type="user" /><span>React</span></span>}
             >
               <Menu.Item key="3">Tom</Menu.Item>
               <Menu.Item key="4">Bill</Menu.Item>

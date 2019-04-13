@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Form, Button, Card, DatePicker, Input } from "antd";
 import TodoRouter from "../../contants/TodoRouter";
+import moment from "moment";
 
 import { observer, inject } from "mobx-react";
 
@@ -10,9 +11,27 @@ class TodoForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: "",
       todo: "",
-      time: ""
+      time: new Date()
     };
+  }
+  componentDidMount() {
+    if (!!this.props.location.state) {
+      let { todoStore } = this.props;
+      let { query } = this.props.location.state;
+      if (!!query) {
+        let { id } = query;
+        let todoEntity = todoStore.GetTodo(id);
+        if (!!todoEntity) {
+          this.setState({
+            key: todoEntity.key,
+            todo: todoEntity.todoName,
+            time: todoEntity.addTime
+          });
+        }
+      }
+    }
   }
   handleAddTodo = () => {
     this.props.todoStore.Add(this.state);
@@ -40,6 +59,7 @@ class TodoForm extends Component {
             <DatePicker
               showTime
               placeholder="选择时间"
+              value={moment(this.state.time, "YYYY/MM/DD HH:mm:SS")}
               onChange={this.handleOkDatePicker.bind(this)}
             />
           </Form.Item>

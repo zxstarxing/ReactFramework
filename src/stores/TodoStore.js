@@ -1,5 +1,6 @@
 import { observable, computed, action } from "mobx";
 import TodoModel from "../models/TodoModel";
+import { get } from "http";
 
 class TodoStore {
   @observable todoList = [
@@ -14,9 +15,18 @@ class TodoStore {
       addTime: "2019-03-26 18:00"
     }
   ];
+
+  @action
+  GetTodo(id) {
+    return this.todoList.find(item => item.key == id);
+  }
   @action
   Add({ todo, time }) {
     this.todoList.push(new TodoModel(todo, time).toObject());
+  }
+  @action
+  Remove(id) {
+    this.todoList = this.todoList.filter(item => item.key != id);
   }
   @computed get List() {
     return this.todoList;

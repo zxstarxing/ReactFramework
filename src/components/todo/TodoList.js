@@ -1,18 +1,23 @@
 import React, { Component } from "react";
-import { Table, Button } from "antd";
+import { Table, Button, message } from "antd";
 import { observer, inject } from "mobx-react";
+import { withRouter } from "react-router-dom";
+import TodoRouter from "../../contants/TodoRouter";
 
+@withRouter
 @inject("todoStore")
 @observer
 class TodoList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: []
-    };
+  removeTodo(key) {
+    this.props.todoStore.Remove(key);
+    message.info("删除代办事项成功");
   }
-  componentDidMount() {
-    this.setState({ data: this.props.todoStore.List });
+  editTodo(key) {
+    this.props.history.push(TodoRouter.TODOEDIT, {
+      query: {
+        id: key
+      }
+    });
   }
   render() {
     const columns = [
@@ -29,10 +34,14 @@ class TodoList extends Component {
       {
         title: "Action",
         key: "operation",
-        render: () => (
+        render: ({ key }) => (
           <>
-            <Button type="info">编辑</Button>
-            <Button type="danger">删除</Button>
+            <Button type="info" onClick={() => this.editTodo(key)}>
+              编辑
+            </Button>
+            <Button type="danger" onClick={() => this.removeTodo(key)}>
+              删除
+            </Button>
           </>
         )
       }
@@ -40,7 +49,7 @@ class TodoList extends Component {
     return (
       <Table
         columns={columns}
-        dataSource={this.state.data}
+        dataSource={this.props.todoStore.List}
         width={{ width: "100%" }}
       />
     );
